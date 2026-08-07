@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Black Cat — анкеты нянь, помощниц по дому и сиделок в Словакии</title>
+
+<!-- Короткая версия описания. Именно её показывают Telegram и Facebook
+     в превью ссылки, поэтому она должна быть понятна сама по себе. -->
+<meta name="description" content="Анкеты украино- и русскоязычных нянь, помощниц по дому, сиделок и поваров в Словакии. Выбирайте сами и связывайтесь напрямую — без агентства.">
+<meta property="og:title" content="Black Cat — анкеты нянь, помощниц по дому и сиделок в Словакии">
+<meta property="og:description" content="Анкеты украино- и русскоязычных нянь, помощниц по дому, сиделок и поваров в Словакии. Выбирайте сами и связывайтесь напрямую — без агентства.">
+<meta property="og:type" content="website">
+
+<!-- General Sans — латиница, Manrope — кириллица.
+     В General Sans нет кириллицы, поэтому браузер сам подставляет Manrope
+     для русских букв. Порядок в font-family решает это без всякого кода. -->
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=general-sans@400,500,600,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+
+<style>
+  :root {
+    /* палитра */
+    --yellow:      #FDF391;
+    --periwinkle:  #C4CDF4;
+    --sky:         #A5DBF7;
+    --pink:        #FFB7CD;
+    --lilac:       #B792C5;
+    --green:       #9DCD2C;
+    --taupe:       #DAB2AA;
+    --mauve:       #D6B6CE;
+
+    --ink:      #222222;   /* «чёрный» по макету */
+    --ink-soft: #7C7C7C;
+    --line:     #EDEDEA;
+    --page:     #FFFFFF;
+    --card:     #FFFFFF;
+
+    --r-panel: 28px;
+    --r-card:  20px;
+    --r-photo: 12px;
+
+    /* Основной шрифт — Manrope: почти весь сайт по-русски, и цифры с «€»
+       должны быть из той же гарнитуры, иначе «Анна, 32» набрана двумя
+       шрифтами сразу. General Sans остаётся только для логотипа. */
+    --f:    "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --f-en: "General Sans", "Manrope", -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: var(--f);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body.is-locked { overflow: hidden; }
+
+  /* макет 1440 с полями 40 — контент 1360 */
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 40px; }
+
+  /* Сетка макета, посчитанная один раз: 12 колонок, отступ между ними 24.
+     Отсюда берутся ширины блоков, чтобы они совпадали с Figma
+     на 1440 и продолжали сходиться на других ширинах. */
+  :root {
+    --content: min(1360px, 100vw - 80px);
+    --col:     calc((var(--content) - 264px) / 12);   /* 11 отступов по 24 */
+    --side:    calc(var(--col) * 5 + 96px);           /* блок справа: 5 колонок */
+    --h1-gap:  86px;                                  /* просвет между заголовком и правым блоком */
+  }
+
+  /* ---------------- шапка ----------------
+     Высота 64px, линия снизу идёт от края до края экрана. */
+
+  .site-head { border-bottom: 1px solid #EBEBEB; background: #fff; }
+  .site-head .wrap {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .brand {
+    font-family: var(--f-en);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.05em;
+    color: var(--ink);
+  }
+  .head-badge {
+    background: #F2F2F2;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 14px;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .head-cta {
+    margin-left: auto;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .head-cta:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ---------------- плитки в шапке ----------------
+     Ряд шире экрана: в макете он выходит за холст на 33px слева и 34 справа
+     (1507 при 1440). Поэтому width больше 100%, а лишнее срезается. */
+
+  .hero {
+    margin-top: 40px;
+    overflow: hidden;
+  }
+  .hero-row {
+    display: flex;
+    width: 104.653%;          /* 1507 / 1440 */
+    margin-left: -2.292%;     /*   33 / 1440 */
+  }
+  .tile { display: block; height: auto; }
+  .hero-row .tile:nth-child(1) { width: 33.311%; }  /* 502 / 1507 */
+  .hero-row .tile:nth-child(2) { width: 33.378%; }  /* 503 / 1507 */
+  .hero-row .tile:nth-child(3) { width: 33.311%; }  /* 502 / 1507 */
+
+
+  /* ---------------- заголовок и описание ---------------- */
+
+  /* Та же сетка, что в макете: 12 колонок, между ними 24.
+     Заголовок слева занимает 7 колонок, описание справа — 5.
+     Оба блока начинаются от низа плиток, поэтому 132 и 40 — это
+     отступы именно от плиток, как в Figma. */
+  .intro {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 24px;
+    align-items: start;
+  }
+
+  .intro-head { grid-column: 1 / 8;  grid-row: 1; }
+  .intro-side { grid-column: 8 / 13; grid-row: 1; }
+
+  .intro-side p {
+    margin: 40px 0 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+
+  .intro-cta {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    text-decoration: none;
+    transition: background-color .16s ease, transform .16s ease;
+  }
+
+  h1 {
+    margin: 132px 0 0;
+    font-size: 60px;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+    /* заголовок не доходит до правого блока на 86px */
+    max-width: calc(var(--content) - var(--side) - var(--h1-gap));
+  }
+
+  /* ---------------- сетка карточек ---------------- */
+
+  .grid {
+    display: grid;
+    /* minmax(0,1fr), а не 1fr: иначе длинная плашка вроде «Помощница по дому»
+       раздувает свою колонку и ряд перестаёт быть равным. */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;               /* тот же отступ, что между колонками сетки */
+    list-style: none;
+    margin: 64px 0 0;        /* 64 от заголовка */
+    padding: 0;
+  }
+
+  /* карточка тянется на всю высоту ячейки, поэтому фото в ряду на одной линии */
+  .grid > li { display: flex; }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: left;
+    background: var(--card);
+    border: 0;
+    border-radius: var(--r-card);
+    padding: 23px 20px 16px;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    /* обводка 1px E4E4E4 плюс лёгкая тень */
+    box-shadow: 0 0 0 1px #E4E4E4, 0 4px 18px rgba(17,17,17,.08);
+    -webkit-tap-highlight-color: transparent;
+    transition: box-shadow .18s ease, transform .18s ease;
+  }
+  /* Подъём на 1px — почти незаметный, но живой. Больше нельзя:
+     текст едет вместе с карточкой и начинает дрожать. */
+  .card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 1px #DCDCDC, 0 8px 22px rgba(17,17,17,.13);
+  }
+
+  .card:focus-visible,
+  .btn:focus-visible,
+  .linkish:focus-visible,
+  .page-btn:focus-visible,
+  .modal-close:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .t-nanny  { background: var(--yellow); }
+  .t-house  { background: var(--periwinkle); }
+  .t-carer  { background: var(--sky); }
+  .t-cook   { background: var(--pink); }
+  .t-garden { background: var(--green); }
+  .t-handy  { background: var(--taupe); }
+  .t-other  { background: var(--mauve); }
+
+  .card-name {
+    margin: 20px 0 0;        /* 20 от плашек */
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+  }
+
+  /* list-style задан явно: .facts лежит внутри <li>, и браузер иначе
+     рисует маркеры второго уровня — пустые кружки вместо точек */
+  .facts {
+    margin: 8px 0 0;         /* 8 от имени */
+    padding-left: 19px;
+    list-style: disc;
+    color: #6C6C6C;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    /* ровно две строки, всегда: 2 × 19.2 + отступ между ними */
+    min-height: 40px;
+  }
+
+  /* Каждый пункт — строго одна строка. Длинный текст обрезается
+     многоточием, целиком показывается по наведению. */
+  .facts li { margin: 0 0 2px; position: relative; }
+  .facts li > span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Подсказка появляется только у обрезанных пунктов: атрибут data-tip
+     проставляется скриптом после отрисовки. */
+  .facts li[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    left: 0;
+    top: calc(100% + 6px);
+    z-index: 5;
+    width: max-content;
+    max-width: 240px;
+    white-space: normal;
+    background: var(--ink);
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    padding: 7px 10px;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(17,17,17,.22);
+    pointer-events: none;
+  }
+
+  .card-foot {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;        /* 20 от буллитов */
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+  .card-city { display: inline-flex; align-items: baseline; gap: 5px; min-width: 0; }
+  .card-city span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .card-pay { white-space: nowrap; }
+
+  /* 282 × 178 — то, что остаётся от карточки 322 × 397 после всех
+     отступов и текста. Пропорция, а не пиксели, чтобы фото
+     масштабировалось вместе с колонками. */
+  .card-photo {
+    /* 16 сверху от строки «город — оплата»; по бокам −4, чтобы фото
+       отступало от края карточки на 16, а текст — на 20 */
+    margin: 16px -4px 0;
+    flex: 0 0 auto;
+    aspect-ratio: 290 / 176;
+    border-radius: 17px;
+    overflow: hidden;
+    background: #F4F4F2;
+    display: grid;
+    place-items: center;
+  }
+  .card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Нет фотографии — цветок в цвете категории с первой буквой имени.
+     Пятилепестковая форма, а не логотипная: у логотипа в середине
+     просвет, и буква в нём обрезалась бы. */
+  .photo-fallback {
+    width: 40%;
+    aspect-ratio: 1;
+    clip-path: url(#clip-flower5);
+    display: grid;
+    place-items: center;
+  }
+  .photo-fallback b { font-size: 28px; font-weight: 700; color: rgba(17,17,17,.62); }
+
+  /* ---------------- пагинация ---------------- */
+
+  .pager { display: flex; justify-content: center; align-items: center; gap: 8px; margin: 44px 0 0; }
+  .pager[hidden] { display: none; }
+  .page-btn {
+    min-width: 44px; height: 44px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #fff;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 0 14px;
+  }
+  .page-btn[aria-current="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .page-btn[disabled] { opacity: .35; cursor: default; }
+
+  /* ---------------- подвал ---------------- */
+
+  footer { margin-top: 72px; border-top: 1px solid var(--line); padding: 26px 0 56px; }
+  .linkish {
+    background: none; border: 0; padding: 0; font: inherit;
+    font-size: 16px; color: var(--ink-soft);
+    text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+  }
+
+  .empty {
+    grid-column: 1 / -1;
+    border: 1px dashed var(--line);
+    border-radius: var(--r-card);
+    padding: 46px 22px;
+    text-align: center;
+    color: var(--ink-soft);
+  }
+
+  /* ---------------- модальное окно ---------------- */
+
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(17,17,17,.42);
+    display: flex; align-items: flex-end; justify-content: center;
+    z-index: 10;
+  }
+  .overlay[hidden] { display: none; }
+
+  /* Окно повторяет карточку: те же 16 до фото, 20 до текста,
+     скругление фото 17, те же плашки и та же чёрная кнопка. */
+  /* Окно — рамка со скруглением, которая ничего не прокручивает.
+     Прокрутка живёт внутри, поэтому её полоса обрезается скруглёнными
+     углами и больше не вылезает за них. */
+  /* Сверху и снизу отступ 16 задан на рамке — поэтому полоса прокрутки
+     начинается там же, где фотография, и видно, где прокрутка кончается.
+     Справа отступа у рамки нет: полоса идёт по самому краю окна,
+     а от текста её отодвигает padding-right у прокручиваемого слоя. */
+  .modal {
+    background: #fff;
+    width: 100%; max-width: 560px; max-height: 93vh;
+    border-radius: 24px 24px 0 0;
+    overflow: hidden;
+    display: flex;
+    padding: 16px 0 16px 16px;
+  }
+
+  .modal-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    /* Здесь намеренно НЕТ scrollbar-width / scrollbar-color: в новых
+       Chrome они отменяют правила ::-webkit-scrollbar ниже, и жёлоб
+       снова становится системным (11px вместо 16). */
+  }
+
+  /* 8 от фотографии + ползунок 4 + 8 до края окна = жёлоб 20.
+     Прозрачные поля по 8 с каждой стороны и делают эти просветы. */
+  .modal-scroll::-webkit-scrollbar { width: 20px; }
+  .modal-scroll::-webkit-scrollbar-track { background: transparent; }
+  .modal-scroll::-webkit-scrollbar-thumb {
+    background: #D6D6D6;
+    border-radius: 999px;
+    border: 8px solid transparent;
+    background-clip: content-box;
+  }
+  .modal-scroll::-webkit-scrollbar-thumb:hover { background: #BCBCBC; background-clip: content-box; }
+
+  /* Кнопка закрытия лежит прямо на фотографии */
+  .modal-close {
+    position: absolute;
+    top: 12px; right: 12px;      /* 12 от угла фотографии */
+    z-index: 3;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 0;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(17,17,17,.18);
+    font-size: 19px; line-height: 1; color: var(--ink); cursor: pointer;
+    display: grid; place-items: center;
+  }
+  .modal-close:hover { background: #fff; }
+
+  .modal-media {
+    aspect-ratio: 4 / 3;
+    border-radius: 17px;
+    overflow: hidden;
+    background: #F4F4F2;
+    display: grid; place-items: center;
+  }
+  .modal-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .modal-media .photo-fallback { width: 34%; }
+
+  /* текст отступает от края окна на 20 — как в карточке */
+  .modal-body { padding: 0 4px; }
+  .modal-body > .tags { margin-top: 20px; }
+
+  .modal h2 {
+    margin: 12px 0 0;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+  }
+  .modal-body--text h2 { padding-right: 52px; }   /* не заезжает под крестик */
+
+  dl { margin: 20px 0 0; }
+  .row {
+    display: flex; flex-wrap: wrap; gap: 4px 18px;
+    padding: 14px 0;
+    border-top: 1px solid #EBEBEB;
+  }
+  dt {
+    flex: 0 0 38%; min-width: 128px;
+    color: #6C6C6C;
+    font-size: 16px; font-weight: 400;
+    line-height: 1.2; letter-spacing: -0.04em;
+  }
+  dd {
+    margin: 0; flex: 1 1 55%; min-width: 160px;
+    font-size: 16px; font-weight: 600;
+    line-height: 1.35; letter-spacing: -0.04em;
+  }
+
+  /* Панель с кнопкой прилипает точно к низу окна (bottom: 0), а не
+     на 16px ниже — из-за этого подпись под кнопкой раньше подпрыгивала.
+     Отрицательные поля по бокам, чтобы белый фон закрывал контент
+     под собой на всю ширину. */
+  .cta {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    margin: 8px -4px 0;
+    padding: 16px 4px 0;   /* нижний отступ даёт рамка окна */
+  }
+  .btn {
+    display: block; width: 100%;
+    background: var(--ink); color: #fff;
+    border: 0; border-radius: 999px;
+    padding: 17px 20px;
+    font: inherit; font-weight: 600; font-size: 17px;
+    text-align: center; text-decoration: none; cursor: pointer;
+    transition: background-color .16s ease, transform .16s ease;
+  }
+
+  /* Чёрная кнопка: чуть светлеет и еле заметно приподнимается.
+     Тени нет — на чёрном она выглядит тяжело. */
+  .intro-cta:hover,
+  .btn:hover {
+    background: #3A3A3A;
+    transform: translateY(-1px);
+  }
+  .cta-note { margin: 10px 0 0; font-size: 14px; color: var(--ink-soft); text-align: center; }
+  .notice { margin: 12px 0 0; padding: 13px 15px; background: #FEF7DF; border-radius: 12px; font-size: 15px; }
+  .notice[hidden] { display: none; }
+
+  .prose p { margin: 0 0 14px; font-size: 16px; line-height: 1.55; }
+  .prose p:last-child { margin-bottom: 0; }
+
+  /* ---------------- телефон ---------------- */
+
+  @media (max-width: 1100px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 760px) {
+    .wrap { padding: 0 16px; }
+    /* на телефоне колонки складываются: сначала заголовок, потом описание */
+    .intro { grid-template-columns: 1fr; }
+    .intro-head { grid-column: 1; grid-row: 1; }
+    .intro-side { grid-column: 1; grid-row: 2; }
+    h1 { margin-top: 34px; font-size: 34px; }
+    .intro-side p { margin-top: 22px; }
+    .grid { grid-template-columns: 1fr; gap: 16px; margin-top: 32px; }
+    .card-name { font-size: 26px; }
+    .modal h2 { font-size: 28px; }
+  }
+
+  @media (min-width: 761px) {
+    .overlay { align-items: center; padding: 26px; }
+    .modal { border-radius: 24px; max-height: 88vh; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <clipPath id="clip-quatrefoil" clipPathUnits="objectBoundingBox">
+      <circle cx="0.27" cy="0.27" r="0.27"/><circle cx="0.73" cy="0.27" r="0.27"/>
+      <circle cx="0.27" cy="0.73" r="0.27"/><circle cx="0.73" cy="0.73" r="0.27"/>
+    </clipPath>
+    <clipPath id="clip-flower5" clipPathUnits="objectBoundingBox">
+      <circle cx="0.5" cy="0.2" r="0.225"/><circle cx="0.785" cy="0.407" r="0.225"/>
+      <circle cx="0.676" cy="0.743" r="0.225"/><circle cx="0.324" cy="0.743" r="0.225"/>
+      <circle cx="0.215" cy="0.407" r="0.225"/><circle cx="0.5" cy="0.5" r="0.27"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<header class="site-head">
+  <div class="wrap">
+    <span class="brand" id="brand"></span>
+    <span class="head-badge" id="head-badge"></span>
+    <a class="head-cta" id="head-cta" target="_blank" rel="noopener"></a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-row">
+  <svg class="tile" viewBox="0 0 502 276" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <clipPath id="tile1-shape"><path d="M 350.55 54.56 C 343.13 23.38 311.85 4.12 280.67 11.53 C 249.50 18.95 230.23 50.23 237.65 81.41 C 230.23 50.23 198.95 30.97 167.77 38.38 C 136.60 45.80 117.34 77.08 124.75 108.26 C 132.16 139.43 163.45 158.70 194.62 151.28 C 163.45 158.70 144.19 189.98 151.60 221.16 C 159.01 252.33 190.30 271.59 221.47 264.18 C 252.65 256.76 271.91 225.48 264.50 194.31 C 271.91 225.48 303.20 244.75 334.37 237.33 C 365.55 229.92 384.81 198.63 377.40 167.46 C 369.98 136.28 338.70 117.02 307.52 124.43 C 338.70 117.02 357.96 85.73 350.55 54.56 Z"/></clipPath>
+    </defs>
+    <rect width="502" height="276" rx="32" fill="#A483D0"/>
+    <image href="img/hero-1.jpg" x="111" y="-19" width="644" height="363"
+           preserveAspectRatio="xMidYMid slice" clip-path="url(#tile1-shape)"/>
+  </svg>
+  <svg class="tile" viewBox="0 0 503 276" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <clipPath id="tile2-shape"><path d="M 440.26 34.55 C 440.26 34.55 306.75 -8.22 202.31 48.99 C 97.87 106.20 62.04 241.71 62.03 241.74 C 62.25 241.81 195.62 284.47 299.98 227.30 C 404.36 170.12 440.22 34.72 440.26 34.55 Z"/></clipPath>
+    </defs>
+    <rect width="503" height="276" rx="32" fill="#FDF391"/>
+    <image href="img/hero-2.avif" x="49" y="18" width="426" height="240"
+           preserveAspectRatio="xMidYMid slice" clip-path="url(#tile2-shape)"/>
+  </svg>
+  <svg class="tile" viewBox="0 0 502 276" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <clipPath id="tile3-shape"><path d="M 250.35 73.26 C 231.62 -27.45 116.00 38.33 194.17 105.74 C 97.28 71.63 97.28 204.82 194.17 169.90 C 116.82 237.31 231.62 303.90 250.35 202.39 C 269.89 303.09 384.69 237.31 306.53 169.90 C 403.42 204.01 404.23 71.63 306.53 105.74 C 384.69 39.15 269.89 -27.45 250.35 73.26 Z M 250.35 122.80 C 258.49 122.80 265.82 130.11 265.82 138.23 C 265.82 146.35 258.49 152.85 250.35 152.85 C 242.21 152.85 235.69 146.35 235.69 138.23 C 235.69 130.11 242.21 122.80 250.35 122.80 Z"/></clipPath>
+    </defs>
+    <rect width="502" height="276" rx="32" fill="#A5DBF7"/>
+    <image href="img/hero-3.avif" x="68" y="0" width="387" height="258"
+           preserveAspectRatio="xMidYMid slice" clip-path="url(#tile3-shape)"/>
+  </svg>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="intro">
+    <div class="intro-head"><h1 id="site-title"></h1></div>
+    <div class="intro-side">
+      <p id="site-tagline"></p>
+      <a class="intro-cta" id="intro-cta" target="_blank" rel="noopener"></a>
+    </div>
+  </section>
+
+  <main>
+    <ul class="grid" id="list"></ul>
+    <nav class="pager" id="pager" hidden aria-label="Страницы"></nav>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <button type="button" class="linkish" id="disclaimer-link"></button>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" id="modal">
+    <div class="modal-scroll" id="modal-scroll">
+      <button type="button" class="modal-close" id="modal-close" aria-label="">&times;</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   1. CONFIG
+   ===================================================================== */
+
+const CONFIG = {
+  // ID таблицы с анкетами — кусок адреса между /d/ и /edit.
+  // ВАЖНО: в этой таблице не должно быть контактов. Совсем.
+  sheetId: "1Yai1GxqsZplts2CWk3iFVJ3wiMsvn-Ew3TVPvwNIvDc",
+
+  // gid вкладки с анкетами — число в адресе после #gid=
+  sheetGid: "584615380",
+
+  // Ссылка вида https://docs.google.com/forms/d/e/XXXXXXXX/viewform
+  formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdlrgutazXJMrIGdCkZ4A5kkb5nnEMe8UX0XaFYaB8WiIVwSg/viewform",
+
+  // ID поля формы, в которое подставляется имя кандидата — вопрос «Анкета»
+  formCandidateField: "entry.1259181595",
+
+  // Ваш e-mail. По нему пишут, чтобы удалить анкету.
+  contactEmail: "blackcat.domestic@gmail.com",
+
+  // Анкета соискателя — ссылка из кнопки «Разместить свою анкету»
+  candidateFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfBA1M5dmYnA0E3NDT6gXiLZghDeCwpUKcgqTM0FJOxQmnKvQ/viewform?hl=ru",
+
+  // Картинки в плитках лежат прямо в разметке (папка img/) — здесь ничего нет.
+
+  // Сколько анкет на одной странице. 12 = три ряда по четыре на компьютере.
+  perPage: 12
+};
+
+
+/* =====================================================================
+   2. КОЛОНКИ — что именно сайт забирает из таблицы
+   =====================================================================
+   Это одновременно и схема, и белый список. Адрес запроса собирается
+   ИЗ ЭТОГО СПИСКА: сайт просит у Google только перечисленные колонки.
+
+   Колонок с телефоном и мессенджером здесь быть не должно. Если её здесь
+   нет, она физически не попадает в браузер.
+   ===================================================================== */
+
+const SHEET_COLUMNS = [
+  /* Заполняются вручную, справа от колонок формы */
+  { column: "U", field: "published" },
+  { column: "V", field: "id" },
+  { column: "W", field: "photo" },
+
+  /* Ответы формы */
+  { column: "C", field: "firstName" },
+  { column: "D", field: "age" },
+  { column: "E", field: "nationality" },
+  { column: "F", field: "currentCountry" },
+  { column: "G", field: "willingToRelocate" },
+  { column: "H", field: "categories" },
+  { column: "I", field: "education" },
+  { column: "J", field: "speciality" },
+  { column: "K", field: "experience" },
+  { column: "L", field: "languages" },
+  { column: "M", field: "certificates" },
+  { column: "N", field: "desiredSalary" },
+  { column: "O", field: "workFormat" },
+  { column: "P", field: "availability" },
+  { column: "Q", field: "drivingLicence" },
+  { column: "R", field: "smoker" }
+
+  /* Сюда НЕ входят и на сайт не попадают:
+     A — отметка времени
+     B — согласие на публикацию
+     S — телефон или мессенджер
+     T — можно ли позвонить через месяц                                  */
+];
+
+const LIST_FIELDS = ["categories", "languages"];
+
+/* Цвет плашки категории. Ключ — начало названия, чтобы совпадало
+   и «Помощница по дому», и «По дому». */
+const CATEGORY_COLOURS = [
+  ["няня",          "t-nanny"],
+  ["помощниц",      "t-house"],
+  ["по дому",       "t-house"],
+  ["сиделк",        "t-carer"],
+  ["повар",         "t-cook"],
+  ["садовник",      "t-garden"],
+  ["разнорабоч",    "t-handy"]
+];
+
+
+/* =====================================================================
+   3. T — все строки интерфейса
+   ===================================================================== */
+
+const T = {
+  pageTitle: "Black Cat — анкеты нянь, помощниц по дому и сиделок в Словакии",
+  siteName: "Black Cat",
+  headCta: "Разместить свою анкету",
+  headline: "Найдите помощь по дому и в уходе – без агентства",
+  tagline: "Здесь публикуют анкеты украино- и русскоязычные няни, помощницы по дому, сиделки, повара и садовники, которые ищут работу в Словакии. В каждой анкете — опыт, языки, образование и рассказ о себе. Вы сами выбираете, с кем связаться, – напрямую, без агентства.",
+
+  // «Сейчас» — намеренно: это не обещание навсегда.
+  badgeFamilies: "Сейчас бесплатно для семей",
+
+  emptyList: "Пока здесь нет ни одной анкеты.",
+  loading: "Загружаем анкеты…",
+  loadFailed: "Не удалось загрузить анкеты. Обновите страницу через минуту.",
+  sheetMissing: "Таблица не подключена. Укажите sheetId в CONFIG в файле index.html.",
+
+  close: "Закрыть",
+  requestContact: "Запросить контакт",
+  requestNote: "Вы оставляете имя и e-mail — мы пришлём контакт этого человека.",
+  formMissing: "Форма запроса ещё не подключена. Укажите ссылку на Google-форму в CONFIG в файле index.html.",
+  emailMissing: "Укажите e-mail для связи в CONFIG в файле index.html — без него люди не смогут попросить удалить анкету.",
+
+  prevPage: "Назад",
+  nextPage: "Вперёд",
+
+  // три формы слова «год»: 21 год · 34 года · 45 лет
+  yearsOne: "год", yearsFew: "года", yearsMany: "лет",
+
+  // «Может начать» — намеренно без рода: на сайте есть и мужчины, и женщины
+  canStart: "Может начать",
+
+  disclaimerLink: "Условия",
+  disclaimerTitle: "Условия",
+
+  age: "Возраст",
+  nationality: "Гражданство",
+  currentCountry: "Сейчас находится",
+  willingToRelocate: "Готов(а) к переезду",
+  categories: "Категории работы",
+  education: "Образование",
+  experience: "Опыт",
+  languages: "Языки",
+  certificates: "Сертификаты",
+  desiredSalary: "Желаемая оплата",
+  workFormat: "Формат работы",
+  availability: "Может приступить",
+  drivingLicence: "Водительские права",
+  smoker: "Курение"
+};
+
+const DISCLAIMER_HTML = `
+  <p>Этот сайт — доска объявлений. Люди, которые ищут работу в домашнем
+  хозяйстве, сами заполняют анкету, и мы публикуем её с их согласия. Семьи
+  читают анкеты и сами решают, с кем связаться.</p>
+
+  <p>Мы не подбираем работников, не даём рекомендаций и не участвуем в найме.
+  Мы не наниматель и не посредник в трудовых отношениях.</p>
+
+  <p>Мы не собираем документы, не проводим собеседований и не оцениваем людей,
+  указанных на сайте. Всё в анкете написано самим человеком с его слов. Мы не
+  отвечаем за результат найма, за качество работы и за отношения между семьёй
+  и работником. Решение о найме и связанные с ним риски остаются за вами:
+  рекомендуем самостоятельно посмотреть документы и поговорить с предыдущими
+  нанимателями.</p>
+
+  <p>Анкету удаляем по просьбе человека, которому она принадлежит, — обычно
+  в течение нескольких дней. Напишите нам и укажите тот же телефон, который
+  указали в анкете, — так мы поймём, какую именно анкету убрать.</p>
+
+  <p>Контакты людей на сайте не публикуются. Они передаются семье вручную
+  после запроса.</p>
+
+  <p><b>Про оплату.</b> Сейчас сервис бесплатный для всех. Для людей, которые
+  публикуют анкеты, он останется бесплатным всегда — мы не берём и не будем
+  брать с них денег. Если для семей появится плата, мы предупредим об этом
+  заранее, а те, кто уже пользовался сайтом бесплатно, останутся без оплаты.</p>
+
+  <div id="disclaimer-contact"></div>
+`;
+
+
+/* =====================================================================
+   Дальше — код. Здесь ничего менять не нужно.
+   ===================================================================== */
+
+const listEl = document.getElementById("list");
+const pagerEl = document.getElementById("pager");
+const overlayEl = document.getElementById("overlay");
+const modalEl = document.getElementById("modal");
+const modalScrollEl = document.getElementById("modal-scroll");
+const modalContentEl = document.getElementById("modal-content");
+const closeBtn = document.getElementById("modal-close");
+const disclaimerLink = document.getElementById("disclaimer-link");
+
+const DISCLAIMER_HASH = "usloviya";
+
+let profiles = [];
+let page = 1;
+let lastFocused = null;
+
+/* Открыли ли мы анкету сами (переходом из списка) или человек пришёл
+   сразу по ссылке. Во втором случае «назад» уводит с сайта. */
+let openedFromList = false;
+
+function text(value) {
+  const el = document.createElement("span");
+  el.textContent = value;
+  return el.innerHTML;
+}
+
+function has(value) {
+  if (Array.isArray(value)) return value.length > 0;
+  return value !== undefined && value !== null && String(value).trim() !== "";
+}
+
+/* «21 год», «34 года», «45 лет» */
+function ageLabel(age) {
+  const n = Math.abs(Number(age)) % 100;
+  const last = n % 10;
+  let word = T.yearsMany;
+  if (n < 11 || n > 14) {
+    if (last === 1) word = T.yearsOne;
+    else if (last >= 2 && last <= 4) word = T.yearsFew;
+  }
+  return age + " " + word;
+}
+
+function lower(value) { return String(value || "").toLowerCase(); }
+
+function tagClass(category) {
+  const c = lower(category);
+  for (let i = 0; i < CATEGORY_COLOURS.length; i++) {
+    if (c.indexOf(CATEGORY_COLOURS[i][0]) !== -1) return CATEGORY_COLOURS[i][1];
+  }
+  return "t-other";
+}
+
+/* Фотография или — пока её нет — фигура в цвете первой категории */
+function photoBlock(c, cls) {
+  if (has(c.photo)) {
+    return '<div class="' + cls + '"><img src="' + text(c.photo) + '" alt="' + text(c.firstName) + '" loading="lazy"></div>';
+  }
+  const colourClass = tagClass((c.categories || [])[0] || "");
+  return '<div class="' + cls + '">' +
+           '<div class="photo-fallback ' + colourClass + '"><b>' + text(c.firstName.charAt(0)) + "</b></div>" +
+         "</div>";
+}
+
+
+/* ---------- загрузка из таблицы ----------
+
+   Адрес собирается из SHEET_COLUMNS: в запрос попадают только те колонки,
+   которые там перечислены. Что не перечислено — до браузера не доходит.   */
+
+function sheetUrl() {
+  const letters = SHEET_COLUMNS.map(function (c) { return c.column; }).join(",");
+  return "https://docs.google.com/spreadsheets/d/" +
+    encodeURIComponent(CONFIG.sheetId) +
+    "/gviz/tq?tqx=out:json" +
+    "&gid=" + encodeURIComponent(CONFIG.sheetGid) +
+    "&headers=1" +
+    "&tq=" + encodeURIComponent("select " + letters);
+}
+
+function parseGviz(body) {
+  const start = body.indexOf("{");
+  const end = body.lastIndexOf("}");
+  if (start === -1 || end === -1) throw new Error("unexpected response");
+  return JSON.parse(body.slice(start, end + 1));
+}
+
+function cellValue(cell) {
+  if (!cell) return "";
+  if (cell.v === null || cell.v === undefined) return "";
+  if (cell.f !== undefined && cell.f !== null && cell.f !== "") return String(cell.f);
+  if (cell.v === true) return "да";
+  if (cell.v === false) return "";
+  return String(cell.v);
+}
+
+function splitList(value) {
+  return String(value).split(/[\n,;]+/)
+    .map(function (p) { return p.trim(); })
+    .filter(function (p) { return p !== ""; });
+}
+
+function isPublished(value) {
+  return /^(да|yes|true|1|\+|так|публик)/i.test(String(value).trim());
+}
+
+/* В таблице люди пишут «Словакия, Братислава», а на карточке нужен только
+   город: страна пока одна на всех. В анкете внутри показываем как есть. */
+function cityOnly(value) {
+  const parts = String(value || "").split(",");
+  return parts[parts.length - 1].trim();
+}
+
+function rowsToProfiles(table) {
+  return (table.rows || []).map(function (row, index) {
+    const cells = row.c || [];
+    const profile = {};
+    SHEET_COLUMNS.forEach(function (col, i) {
+      const value = cellValue(cells[i]);
+      profile[col.field] = LIST_FIELDS.indexOf(col.field) === -1 ? value : splitList(value);
+    });
+    if (!has(profile.id)) profile.id = "p" + (index + 2);
+    return profile;
+  }).filter(function (profile) {
+    /* Анкета показывается, только если в таблице стоит отметка о публикации. */
+    return isPublished(profile.published) && has(profile.firstName);
+  });
+}
+
+function loadProfiles() {
+  if (!CONFIG.sheetId.trim()) return Promise.reject(new Error("no-sheet-id"));
+  return fetch(sheetUrl(), { credentials: "omit" })
+    .then(function (r) {
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.text();
+    })
+    .then(function (body) {
+      const data = parseGviz(body);
+      if (!data.table) throw new Error("no table in response");
+      return rowsToProfiles(data.table);
+    });
+}
+
+
+/* ---------- список ---------- */
+
+function showMessage(message) {
+  listEl.innerHTML = '<li class="empty">' + text(message) + "</li>";
+  pagerEl.hidden = true;
+}
+
+function cardHtml(c) {
+  const tags = (c.categories || []).map(function (t) {
+    return '<span class="tag ' + tagClass(t) + '">' + text(t) + "</span>";
+  }).join("");
+
+  const title = [c.firstName, has(c.age) ? c.age : ""].filter(has).join(", ");
+
+  const facts = [
+    c.workFormat,
+    has(c.availability) ? T.canStart + " " + lower(c.availability) : ""
+  ].filter(has).map(function (f) { return "<li><span>" + text(f) + "</span></li>"; }).join("");
+
+  return '' +
+    '<li>' +
+      '<button type="button" class="card" data-id="' + text(c.id) + '">' +
+        (tags ? '<div class="tags">' + tags + "</div>" : "") +
+        '<p class="card-name">' + text(title) + "</p>" +
+        (facts ? '<ul class="facts">' + facts + "</ul>" : "") +
+        '<div class="card-foot">' +
+          '<span class="card-city">📍<span>' + text(cityOnly(c.currentCountry)) + "</span></span>" +
+          '<span class="card-pay">' + text(c.desiredSalary) + "</span>" +
+        "</div>" +
+        photoBlock(c, "card-photo") +
+      "</button>" +
+    "</li>";
+}
+
+function totalPages() {
+  return Math.max(1, Math.ceil(profiles.length / CONFIG.perPage));
+}
+
+function renderPager() {
+  const pages = totalPages();
+  if (pages < 2) { pagerEl.hidden = true; pagerEl.innerHTML = ""; return; }
+
+  let html = '<button type="button" class="page-btn" data-page="' + (page - 1) + '"' +
+             (page === 1 ? " disabled" : "") + ">" + text(T.prevPage) + "</button>";
+  for (let i = 1; i <= pages; i++) {
+    html += '<button type="button" class="page-btn" data-page="' + i + '"' +
+            (i === page ? ' aria-current="true"' : "") + ">" + i + "</button>";
+  }
+  html += '<button type="button" class="page-btn" data-page="' + (page + 1) + '"' +
+          (page === pages ? " disabled" : "") + ">" + text(T.nextPage) + "</button>";
+
+  pagerEl.innerHTML = html;
+  pagerEl.hidden = false;
+}
+
+/* Подсказку вешаем только там, где текст реально не поместился:
+   сравниваем настоящую ширину строки с видимой. */
+function markTruncatedFacts() {
+  listEl.querySelectorAll(".facts li").forEach(function (li) {
+    const span = li.firstElementChild;
+    if (span && span.scrollWidth > span.clientWidth + 1) li.dataset.tip = span.textContent;
+    else li.removeAttribute("data-tip");
+  });
+}
+
+function renderList() {
+  if (profiles.length === 0) { showMessage(T.emptyList); return; }
+
+  const from = (page - 1) * CONFIG.perPage;
+  listEl.innerHTML = profiles.slice(from, from + CONFIG.perPage).map(cardHtml).join("");
+  renderPager();
+  markTruncatedFacts();
+}
+
+/* при изменении ширины окна обрезка меняется — пересчитываем */
+let resizeTimer = null;
+window.addEventListener("resize", function () {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(markTruncatedFacts, 150);
+});
+
+function goToPage(n) {
+  const pages = totalPages();
+  page = Math.min(Math.max(1, n), pages);
+  renderList();
+  listEl.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+
+/* ---------- анкета ---------- */
+
+function requestUrl(candidate) {
+  const base = CONFIG.formUrl.trim();
+  const field = CONFIG.formCandidateField.trim();
+  if (!base) return "";
+  if (!field) return base;
+  const sep = base.indexOf("?") === -1 ? "?" : "&";
+  /* hl=ru — кнопки самой Google-формы. Без этого они показываются
+     на языке браузера посетителя. */
+  return base + sep + "hl=ru&" + encodeURIComponent(field) + "=" +
+    encodeURIComponent(candidate.firstName + " (" + candidate.id + ")");
+}
+
+function row(label, value) {
+  if (!has(value)) return "";
+  const shown = Array.isArray(value) ? value.join(", ") : value;
+  return '<div class="row"><dt>' + text(label) + "</dt><dd>" + text(shown) + "</dd></div>";
+}
+
+function candidateHtml(c) {
+  const url = requestUrl(c);
+
+  const cta = url
+    ? '<a class="btn" href="' + text(url) + '" target="_blank" rel="noopener">' + text(T.requestContact) + "</a>" +
+      '<p class="cta-note">' + text(T.requestNote) + "</p>"
+    : '<button type="button" class="btn" id="cta-disabled">' + text(T.requestContact) + "</button>" +
+      '<p class="notice" id="cta-notice" hidden>' + text(T.formMissing) + "</p>";
+
+  const tags = (c.categories || []).map(function (t) {
+    return '<span class="tag ' + tagClass(t) + '">' + text(t) + "</span>";
+  }).join("");
+
+  const title = [c.firstName, has(c.age) ? c.age : ""].filter(has).join(", ");
+
+  /* «Высшее» + «дошкольное воспитание» → «Высшее, дошкольное воспитание» */
+  const education = [c.education, c.speciality].filter(has).join(", ");
+
+  return '' +
+    photoBlock(c, "modal-media") +
+    '<div class="modal-body">' +
+    (tags ? '<div class="tags">' + tags + "</div>" : "") +
+    '<h2 id="modal-title">' + text(title) + "</h2>" +
+    "<dl>" +
+      row(T.currentCountry, c.currentCountry) +
+      row(T.nationality, c.nationality) +
+      row(T.experience, c.experience) +
+      row(T.education, education) +
+      row(T.languages, c.languages) +
+      row(T.certificates, c.certificates) +
+      row(T.desiredSalary, c.desiredSalary) +
+      row(T.workFormat, c.workFormat) +
+      row(T.availability, c.availability) +
+      row(T.willingToRelocate, c.willingToRelocate) +
+      row(T.drivingLicence, c.drivingLicence) +
+      row(T.smoker, c.smoker) +
+    "</dl>" +
+    '<div class="cta">' + cta + "</div>" +
+    "</div>";
+}
+
+
+/* ---------- модальное окно ---------- */
+
+function openModal(html) {
+  modalContentEl.innerHTML = html;
+  overlayEl.hidden = false;
+  document.body.classList.add("is-locked");
+  modalScrollEl.scrollTop = 0;
+  closeBtn.focus();
+
+  const disabled = document.getElementById("cta-disabled");
+  if (disabled) {
+    disabled.addEventListener("click", function () {
+      document.getElementById("cta-notice").hidden = false;
+    });
+  }
+}
+
+function closeModal() {
+  overlayEl.hidden = true;
+  modalContentEl.innerHTML = "";
+  document.body.classList.remove("is-locked");
+  openedFromList = false;
+  if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
+  lastFocused = null;
+}
+
+/* Адрес страницы — единственный источник правды о том, что открыто.
+   Благодаря этому кнопка «назад» на телефоне закрывает анкету,
+   а не уводит с сайта, и ссылкой на анкету можно поделиться. */
+function syncFromHash() {
+  const hash = decodeURIComponent(window.location.hash.replace(/^#/, ""));
+
+  if (!hash) { if (!overlayEl.hidden) closeModal(); return; }
+
+  if (hash === DISCLAIMER_HASH) {
+    openModal('<div class="modal-body modal-body--text"><h2 id="modal-title">' +
+              text(T.disclaimerTitle) + '</h2><div class="prose">' + DISCLAIMER_HTML + "</div></div>");
+    const mail = CONFIG.contactEmail.trim();
+    document.getElementById("disclaimer-contact").innerHTML = mail
+      ? "Связаться с нами: " + '<a href="mailto:' + text(mail) + '">' + text(mail) + "</a>"
+      : '<p class="notice">' + text(T.emailMissing) + "</p>";
+    return;
+  }
+
+  const candidate = profiles.filter(function (c) { return c.id === hash; })[0];
+  if (candidate) openModal(candidateHtml(candidate));
+  else window.location.replace("#");
+}
+
+function goTo(hash) {
+  lastFocused = document.activeElement;
+  openedFromList = true;
+  window.location.hash = hash;
+}
+
+function dismiss() {
+  if (openedFromList) {
+    window.history.back();
+  } else {
+    history.replaceState(null, "", window.location.pathname + window.location.search);
+    closeModal();
+  }
+}
+
+listEl.addEventListener("click", function (e) {
+  const card = e.target.closest(".card");
+  if (card) goTo(card.dataset.id);
+});
+
+pagerEl.addEventListener("click", function (e) {
+  const btn = e.target.closest(".page-btn");
+  if (btn && !btn.disabled) goToPage(Number(btn.dataset.page));
+});
+
+disclaimerLink.addEventListener("click", function () { goTo(DISCLAIMER_HASH); });
+closeBtn.addEventListener("click", dismiss);
+overlayEl.addEventListener("click", function (e) { if (e.target === overlayEl) dismiss(); });
+
+document.addEventListener("keydown", function (e) {
+  if (overlayEl.hidden) return;
+  if (e.key === "Escape") { dismiss(); return; }
+
+  /* фокус не должен уходить за пределы открытой анкеты */
+  if (e.key === "Tab") {
+    const focusable = modalEl.querySelectorAll("button, a[href], [tabindex]:not([tabindex='-1'])");
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
+
+window.addEventListener("hashchange", syncFromHash);
+
+
+/* ---------- запуск ---------- */
+
+document.title = T.pageTitle;
+document.getElementById("brand").textContent = T.siteName;
+document.getElementById("site-title").textContent = T.headline;
+document.getElementById("site-tagline").textContent = T.tagline;
+document.getElementById("head-badge").textContent = T.badgeFamilies;
+
+/* обе кнопки «Разместить свою анкету» ведут на анкету соискателя */
+["head-cta", "intro-cta"].forEach(function (id) {
+  const el = document.getElementById(id);
+  el.textContent = T.headCta;
+  el.href = CONFIG.candidateFormUrl;
+});
+closeBtn.setAttribute("aria-label", T.close);
+disclaimerLink.textContent = T.disclaimerLink;
+
+
+showMessage(T.loading);
+
+loadProfiles()
+  .then(function (loaded) { profiles = loaded; renderList(); })
+  .catch(function (error) {
+    showMessage(error.message === "no-sheet-id" ? T.sheetMissing : T.loadFailed);
+    if (window.console) console.error("Не удалось загрузить таблицу:", error);
+  })
+  .then(function () { syncFromHash(); });
+</script>
+
+</body>
+</html>

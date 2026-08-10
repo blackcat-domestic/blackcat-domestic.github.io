@@ -357,13 +357,23 @@
      Пятилепестковая форма, а не логотипная: у логотипа в середине
      просвет, и буква в нём обрезалась бы. */
   .photo-fallback {
+    position: relative;
     width: 40%;
     aspect-ratio: 1;
-    clip-path: url(#clip-flower5);
     display: grid;
     place-items: center;
   }
-  .photo-fallback b { font-size: 28px; font-weight: 700; color: rgba(17,17,17,.62); }
+  .photo-fallback svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* цвет лепестков — по первой категории человека */
+  .photo-fallback[data-c="nanny"]  svg { fill: var(--yellow); }
+  .photo-fallback[data-c="house"]  svg { fill: var(--periwinkle); }
+  .photo-fallback[data-c="carer"]  svg { fill: var(--sky); }
+  .photo-fallback[data-c="cook"]   svg { fill: var(--pink); }
+  .photo-fallback[data-c="garden"] svg { fill: var(--green); }
+  .photo-fallback[data-c="handy"]  svg { fill: var(--taupe); }
+  .photo-fallback[data-c="other"]  svg { fill: var(--mauve); }
+  .photo-fallback b { position: relative; font-size: 28px; font-weight: 700; color: rgba(17,17,17,.62); }
 
   /* ---------------- пагинация ---------------- */
 
@@ -602,10 +612,14 @@
     .page-btn { min-width: 40px; height: 40px; font-size: 15px; padding: 0 11px; }
 
     /* Окно — шторка снизу на всю ширину */
-    .modal { max-width: none; max-height: 92vh; padding: 12px 0 12px 12px; }
+    /* Отступ со всех сторон одинаковый: на телефоне полоса прокрутки
+       наложенная и ширины не занимает, поэтому справа её место
+       резервировать не нужно. */
+    .modal { max-width: none; max-height: 92vh; padding: 12px; }
     .modal-scroll { padding-right: 0; }
-    .modal-scroll::-webkit-scrollbar { width: 16px; }
-    .modal-scroll::-webkit-scrollbar-thumb { border-width: 6px; }
+    /* на телефоне прокручивают пальцем — полоса не нужна и не должна
+       отъедать 20px справа, иначе отступы получаются разные */
+    .modal-scroll::-webkit-scrollbar { width: 0; }
     .modal-media { aspect-ratio: 3 / 2; }
     .modal h2 { font-size: 26px; }
     dt { flex: 0 0 100%; min-width: 0; }
@@ -626,20 +640,6 @@
 </style>
 </head>
 <body>
-
-<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
-  <defs>
-    <clipPath id="clip-quatrefoil" clipPathUnits="objectBoundingBox">
-      <circle cx="0.27" cy="0.27" r="0.27"/><circle cx="0.73" cy="0.27" r="0.27"/>
-      <circle cx="0.27" cy="0.73" r="0.27"/><circle cx="0.73" cy="0.73" r="0.27"/>
-    </clipPath>
-    <clipPath id="clip-flower5" clipPathUnits="objectBoundingBox">
-      <circle cx="0.5" cy="0.2" r="0.225"/><circle cx="0.785" cy="0.407" r="0.225"/>
-      <circle cx="0.676" cy="0.743" r="0.225"/><circle cx="0.324" cy="0.743" r="0.225"/>
-      <circle cx="0.215" cy="0.407" r="0.225"/><circle cx="0.5" cy="0.5" r="0.27"/>
-    </clipPath>
-  </defs>
-</svg>
 
 <header class="site-head">
   <div class="wrap">
@@ -791,13 +791,13 @@ const LIST_FIELDS = ["categories", "languages"];
 /* Цвет плашки категории. Ключ — начало названия, чтобы совпадало
    и «Помощница по дому», и «По дому». */
 const CATEGORY_COLOURS = [
-  ["няня",          "t-nanny"],
-  ["помощниц",      "t-house"],
-  ["по дому",       "t-house"],
-  ["сиделк",        "t-carer"],
-  ["повар",         "t-cook"],
-  ["садовник",      "t-garden"],
-  ["разнорабоч",    "t-handy"]
+  ["няня",          "nanny"],
+  ["помощниц",      "house"],
+  ["по дому",       "house"],
+  ["сиделк",        "carer"],
+  ["повар",         "cook"],
+  ["садовник",      "garden"],
+  ["разнорабоч",    "handy"]
 ];
 
 
@@ -933,22 +933,39 @@ function ageLabel(age) {
 
 function lower(value) { return String(value || "").toLowerCase(); }
 
-function tagClass(category) {
+function categoryKey(category) {
   const c = lower(category);
   for (let i = 0; i < CATEGORY_COLOURS.length; i++) {
     if (c.indexOf(CATEGORY_COLOURS[i][0]) !== -1) return CATEGORY_COLOURS[i][1];
   }
-  return "t-other";
+  return "other";
 }
+
+function tagClass(category) { return "t-" + categoryKey(category); }
 
 /* Фотография или — пока её нет — фигура в цвете первой категории */
 function photoBlock(c, cls) {
   if (has(c.photo)) {
     return '<div class="' + cls + '"><img src="' + text(c.photo) + '" alt="' + text(c.firstName) + '" loading="lazy"></div>';
   }
-  const colourClass = tagClass((c.categories || [])[0] || "");
+  /* Цветок рисуется прямо здесь, отдельным <svg>. Раньше форма задавалась
+     через clip-path: url(#…) и ссылку на скрытый SVG — Safari на iPhone
+     такую ссылку не применяет, и вместо цветка выходил жёлтый квадрат. */
+  const key = categoryKey((c.categories || [])[0] || "");
   return '<div class="' + cls + '">' +
-           '<div class="photo-fallback ' + colourClass + '"><b>' + text(c.firstName.charAt(0)) + "</b></div>" +
+           '<div class="photo-fallback" data-c="' + key + '">' +
+             /* viewBox шире фигуры: верхний лепесток доходит до -2.5,
+                боковые — до -1 и 101, и при 0 0 100 100 они срезались */
+             '<svg viewBox="-1 -4 102 102" aria-hidden="true" focusable="false">' +
+               '<circle cx="50" cy="20" r="22.5"/>' +
+               '<circle cx="78.5" cy="40.7" r="22.5"/>' +
+               '<circle cx="67.6" cy="74.3" r="22.5"/>' +
+               '<circle cx="32.4" cy="74.3" r="22.5"/>' +
+               '<circle cx="21.5" cy="40.7" r="22.5"/>' +
+               '<circle cx="50" cy="50" r="27"/>' +
+             "</svg>" +
+             "<b>" + text(c.firstName.charAt(0)) + "</b>" +
+           "</div>" +
          "</div>";
 }
 

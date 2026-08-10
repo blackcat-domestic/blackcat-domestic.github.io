@@ -90,6 +90,17 @@
     padding-top: 0;
     padding-bottom: 0;
   }
+  /* Кот стоит перед словом Black Cat. Высота 40 при шапке 64 —
+     остаётся по 12 сверху и снизу. Ширина считается сама: пропорции
+     рисунка 172 × 240. Картинка втрое крупнее, чтобы оставаться
+     чёткой на экранах с высокой плотностью. */
+  .mark {
+    height: 40px;
+    width: auto;
+    flex: 0 0 auto;
+    display: block;
+  }
+
   .brand {
     font-family: var(--f-en);
     font-size: 24px;
@@ -643,6 +654,7 @@
 
 <header class="site-head">
   <div class="wrap">
+    <img class="mark" src="img/logo.png" alt="" width="172" height="240">
     <span class="brand" id="brand"></span>
     <span class="head-badge" id="head-badge"></span>
     <a class="head-cta" id="head-cta" target="_blank" rel="noopener"></a>
@@ -1205,7 +1217,16 @@ function candidateHtml(c) {
 function openModal(html) {
   modalContentEl.innerHTML = html;
   overlayEl.hidden = false;
+
+  /* Пока анкета открыта, страница под ней не прокручивается. Но если
+     просто спрятать прокрутку, исчезает и её полоса — страница
+     становится шире на её ширину, и весь текст под окном дёргается.
+     Поэтому добавляем ровно столько отступа, сколько занимала полоса.
+     На телефоне полоса наложенная, ширина 0, и ничего не меняется. */
+  const scrollbar = window.innerWidth - document.documentElement.clientWidth;
+  if (scrollbar > 0) document.body.style.paddingRight = scrollbar + "px";
   document.body.classList.add("is-locked");
+
   modalScrollEl.scrollTop = 0;
   closeBtn.focus();
 
@@ -1221,6 +1242,7 @@ function closeModal() {
   overlayEl.hidden = true;
   modalContentEl.innerHTML = "";
   document.body.classList.remove("is-locked");
+  document.body.style.paddingRight = "";
   openedFromList = false;
   if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
   lastFocused = null;

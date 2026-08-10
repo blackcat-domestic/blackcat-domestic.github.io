@@ -1107,13 +1107,16 @@ function photoBlock(c, cls) {
    которые там перечислены. Что не перечислено — до браузера не доходит.   */
 
 function sheetUrl() {
-  const letters = SHEET_COLUMNS.map(function (c) { return c.column; }).join(",");
+  /* Колонки не перечисляем. В публичной таблице всё содержимое —
+     результат одной формулы в A1, и Google в таком случае «видит»
+     только колонку A: запрос вида select A,B,C… падает с NO_COLUMN: B.
+     Перечислять их больше и незачем — в этой таблице нет ничего,
+     кроме полей анкеты. Границу задаёт сама таблица, а не запрос. */
   return "https://docs.google.com/spreadsheets/d/" +
     encodeURIComponent(CONFIG.sheetId) +
     "/gviz/tq?tqx=out:json" +
     "&gid=" + encodeURIComponent(CONFIG.sheetGid) +
-    "&headers=1" +
-    "&tq=" + encodeURIComponent("select " + letters);
+    "&headers=1";
 }
 
 function parseGviz(body) {

@@ -99,6 +99,9 @@
     width: auto;
     flex: 0 0 auto;
     display: block;
+    /* до слова Black Cat 14, а не 16: у шапки общий gap 16,
+       и эти −2 укорачивают только этот просвет */
+    margin-right: -2px;
   }
 
   .brand {
@@ -388,22 +391,58 @@
 
   /* ---------------- пагинация ---------------- */
 
-  .pager { display: flex; justify-content: center; align-items: center; gap: 8px; margin: 44px 0 0; }
+  .pager {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 48px 0 0;
+  }
   .pager[hidden] { display: none; }
+
+  /* Те же капсулы, что у остальных кнопок: обводка как у карточки,
+     шрифт и трекинг как везде. Текущая страница — чёрная, как главная
+     кнопка сайта. */
   .page-btn {
-    min-width: 44px; height: 44px;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 16px;
     border-radius: 999px;
-    border: 1px solid var(--line);
+    border: 1px solid #E4E4E4;
     background: #fff;
     font: inherit;
     font-size: 16px;
     font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
     color: var(--ink);
     cursor: pointer;
-    padding: 0 14px;
+    transition: background-color .16s ease, border-color .16s ease;
   }
-  .page-btn[aria-current="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
-  .page-btn[disabled] { opacity: .35; cursor: default; }
+
+  /* «Назад» и «Вперёд» — слова, им нужно чуть больше воздуха по бокам */
+  .page-btn.page-step { padding: 0 20px; }
+
+  .page-btn:hover:not([disabled]) {
+    background: #F2F2F2;
+    border-color: #DCDCDC;
+  }
+
+  /* Текущая страница выключена — нажимать её незачем, — но выглядит
+     не как «недоступно», а как главная кнопка сайта. Поэтому правило
+     стоит после [disabled] и перекрывает серый вид. */
+  .page-btn[disabled] {
+    color: #B4B4B4;
+    border-color: #EFEFEF;
+    cursor: default;
+  }
+
+  .page-btn[aria-current="page"] {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+    cursor: default;
+  }
 
   /* ---------------- подвал ---------------- */
 
@@ -619,8 +658,9 @@
     .card-photo { margin: 16px -4px 0; }
     .card-name { font-size: 24px; }
 
-    .pager { margin-top: 32px; flex-wrap: wrap; gap: 6px; }
-    .page-btn { min-width: 40px; height: 40px; font-size: 15px; padding: 0 11px; }
+    .pager { margin-top: 36px; flex-wrap: wrap; gap: 6px; }
+    .page-btn { min-width: 40px; height: 40px; font-size: 15px; padding: 0 12px; }
+    .page-btn.page-step { padding: 0 16px; }
 
     /* Окно — шторка снизу на всю ширину */
     /* Отступ со всех сторон одинаковый: на телефоне полоса прокрутки
@@ -840,6 +880,7 @@ const T = {
 
   prevPage: "Назад",
   nextPage: "Вперёд",
+  pageLabel: "Страница",   // для читалок: «Страница 2»
 
   // три формы слова «год»: 21 год · 34 года · 45 лет
   yearsOne: "год", yearsFew: "года", yearsMany: "лет",
@@ -1103,13 +1144,16 @@ function renderPager() {
   const pages = totalPages();
   if (pages < 2) { pagerEl.hidden = true; pagerEl.innerHTML = ""; return; }
 
-  let html = '<button type="button" class="page-btn" data-page="' + (page - 1) + '"' +
+  let html = '<button type="button" class="page-btn page-step" data-page="' + (page - 1) + '"' +
              (page === 1 ? " disabled" : "") + ">" + text(T.prevPage) + "</button>";
   for (let i = 1; i <= pages; i++) {
+    /* текущая страница помечена и для читалок, и визуально; нажимать её незачем */
+    const current = i === page;
     html += '<button type="button" class="page-btn" data-page="' + i + '"' +
-            (i === page ? ' aria-current="true"' : "") + ">" + i + "</button>";
+            (current ? ' aria-current="page" disabled' : "") +
+            ' aria-label="' + text(T.pageLabel + " " + i) + '">' + i + "</button>";
   }
-  html += '<button type="button" class="page-btn" data-page="' + (page + 1) + '"' +
+  html += '<button type="button" class="page-btn page-step" data-page="' + (page + 1) + '"' +
           (page === pages ? " disabled" : "") + ">" + text(T.nextPage) + "</button>";
 
   pagerEl.innerHTML = html;
